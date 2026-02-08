@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -45.737, y: -75}
+  m_AnchoredPosition: {x: -46, y: -75}
   m_SizeDelta: {x: 28.125, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8648562118577991623
@@ -181,7 +181,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 46.3, y: -75}
+  m_AnchoredPosition: {x: 46, y: -75}
   m_SizeDelta: {x: 28.125, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1922814003787650013
@@ -453,9 +453,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6057629360451633410}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.1147668, y: 1.1147668, z: 1.1147668}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7433644701962631109}
@@ -465,9 +465,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 596, y: 193.82}
+  m_SizeDelta: {x: 825.5, y: 400}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7099955175596682399
 Canvas:
   m_ObjectHideFlags: 0
@@ -816,7 +816,8 @@ MonoBehaviour:
     malicious software\n\n\n\nOn The Subject Of Software Updates\n\nJava:\n - Use
     \"java -version\" in terminal\n - Java not installed:\n\tError: \"java not recognised\"\n\tSolution:\n\t
     - Open Edge\n\t - Install newest version (25.0.2)\n - Java version out of date:\n\tError
-    ~\"25.0.1\"\n\tSolution:\n\t - Update Java\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    ~\"25.0.1\"\n\tSolution:\n\t - Update Java\n\n\n\n\n\n\n\t\n\n\t     Thanks For
+    Reading\n\t\t  My Manual\n\n\n\n\n\n\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -960,7 +961,7 @@ MonoBehaviour:
     then \"uninstall #\" in terminal\nOn The Subject Of Software Updates\n\nPython:\n
     - Use \"python -version\" in terminal\n - Python not installed:\n\tError: \"python\"
     not recognised\n\tSolution:\n\t - Open Edge\n\t - Install Python\n - Python version
-    outdated:\n\tError: \"Python is outdated...\"\n\tUse \"pip-update\" in terminal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    outdated:\n\tError: \"Python is outdated...\"\n\tUse \"pip-update\" in terminal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\t"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1043,7 +1044,7 @@ GameObject:
   - component: {fileID: 7433644701962631109}
   - component: {fileID: 609016090949472214}
   m_Layer: 0
-  m_Name: book_0
+  m_Name: book
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1058,7 +1059,7 @@ Transform:
   m_GameObject: {fileID: 8091803700317967556}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.024429332, y: -1.0162942, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 52.097153, y: 48.9606, z: 30.765104}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1111,7 +1112,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 3843231544584785974, guid: 952e445879a5e9947b71b66ff9a0127e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
