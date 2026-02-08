@@ -60,6 +60,15 @@ namespace Assets.Computer
             this.Children.RemoveAll(node => node.Name == name);
         }
 
+        public void DeleteChild(FileSystemNode node)
+        {
+            if (!this.Children.Any() || !this.Children.Contains(node))
+            {
+                // TODO: Handle non existent delete request
+            }
+            this.Children.Remove(node);
+        }
+
         public void CreateFolder(string folderName)
         {
             this.CreateChild(new Folder(this.GetPath(), folderName));
@@ -75,14 +84,45 @@ namespace Assets.Computer
             this.CreateChild(new File(this.GetPath(), fileName));
         }
 
-        public void CopyFile(File fileContents)
+        public void CopyFile(File file)
         {
-            //this.CreateChild(new FileSystemNode(this.GetPath(), fileName, fileContents));
+            this.CreateChild(new File(file));
         }
 
         public void DeleteFile(string fileName)
         {
             this.DeleteChild(fileName);
+        }
+
+        public FileSystemNode GetChildByName(string name)
+        {
+            FileSystemNode child = this.Children.FirstOrDefault(node => node.Name == name);
+            if (child != null)
+            {
+                return child;
+            } else
+            {
+                // TODO: error child not found
+                return null;
+            }
+        }
+
+        public FileSystemNode GetChildByPath(string path)
+        {
+            string[] splitPath = path.Split('/'); // Empty string at the end??
+            FileSystemNode currentItem = this.GetChildByName(splitPath[0]);
+            if (splitPath.Length == 1) {
+                return currentItem;
+            }
+            if (currentItem is Folder)
+            {
+                return ((Folder) currentItem).GetChildByPath(String.Join("/", splitPath.Skip(1).ToList()));
+            }
+            else
+            {
+                // TODO: error incorrect path
+                return null;
+            }
         }
     }
 }
