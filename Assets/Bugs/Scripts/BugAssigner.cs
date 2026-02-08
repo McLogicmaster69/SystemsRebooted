@@ -9,7 +9,10 @@ namespace SystemReboot.Bugs
             Bug[] bugs = new Bug[]
             {
                 new InactiveDesktopBug(),
-                new WrongTimezoneBug()
+                new WrongTimezoneBug(),
+                new MissingLavaVariableBug(),
+                new WrongLavaVariableBug(),
+                new TrojanBug()
             };
 
             return bugs[Random.Range(0, bugs.Length)];
