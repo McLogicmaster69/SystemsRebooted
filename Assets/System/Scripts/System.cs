@@ -31,12 +31,17 @@ namespace SystemReboot.Systems
             // Default Variables
             SystemVariables.SetVariable("DESKTOP_STATE", "on");
             SystemVariables.SetVariable("TIMEZONE", "uk");
+            SystemVariables.SetVariable("LAVA", "/etc/lava");
 
             // Default files
             FileSystem.FileSystem.CreateFolderPath("usr/username/desktop");
             FileSystem.FileSystem.CreateFolderPath("usr/username/videos");
             FileSystem.FileSystem.CreateFolderPath("usr/username/photos");
             FileSystem.FileSystem.CreateFolderPath("usr/username/apps");
+
+            FileSystem.FileSystem.CreateFolderPath("etc/lava");
+
+            FileSystem.FileSystem.GetFolderFromPath("etc/lava").CreateFile("lava.exe");
 
             // Inject bug
             _bug = bug;

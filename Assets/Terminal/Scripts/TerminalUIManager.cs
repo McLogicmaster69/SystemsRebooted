@@ -45,7 +45,7 @@ namespace SystemReboot.Terminal
                 if (interpreterOutput.Clear)
                     _textOutput.text = string.Empty;
 
-                if (interpreterOutput != null)
+                if (interpreterOutput.State != InterpreterOutputState.Empty)
                     Print(interpreterOutput.Text);
 
                 if (interpreterOutput.ChangedDirectory)

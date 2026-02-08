@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SystemReboot.Computers;
 using UnityEngine;
 
 namespace SystemReboot.Terminal
@@ -17,7 +18,10 @@ namespace SystemReboot.Terminal
             {"reboot", CommandReboot},
             {"cls", CommandCls},
             {"ls", CommandLs},
-            {"cd", CommandCd}
+            {"cd", CommandCd},
+            {"lava", CommandLava},
+            {"mv", CommandMv},
+            {"rm", CommandRm}
         };
 
         public static InterpreterOutput Interpret(string input, string path)
@@ -188,8 +192,8 @@ namespace SystemReboot.Terminal
             }
             else
             {
-                nodes = Systems.System.Main.FileSystem.FileSystem.GetChildrenNameListByPath(path + parameters[1]);
-                outputPath = path + parameters[1];
+                nodes = Systems.System.Main.FileSystem.FileSystem.GetChildrenNameListByPath(CombinePath(path, parameters[1]));
+                outputPath = CombinePath(path, parameters[1]);
             }
 
             if (nodes.Count == 0)
@@ -254,6 +258,114 @@ namespace SystemReboot.Terminal
             };
         }
 
+        private static InterpreterOutput CommandLava(string[] parameters, string path)
+        {
+            if (!Systems.System.Main.SystemVariables.ContainsVariable("LAVA"))
+            {
+                return new InterpreterOutput
+                {
+                    Text = "No command found",
+                    State = InterpreterOutputState.Error  
+                };
+            }
+            
+            Folder folder = Systems.System.Main.FileSystem.FileSystem.GetFolderFromPath(Systems.System.Main.SystemVariables.GetVariable("LAVA").Item2);
+        
+            if (folder == null)
+                return new InterpreterOutput
+                {
+                    Text = "No command found",
+                    State = InterpreterOutputState.Error  
+                };
+
+            if (!folder.ContainsFile("lava.exe"))
+            {
+                return new InterpreterOutput
+                {
+                    Text = "No command found",
+                    State = InterpreterOutputState.Error  
+                };
+            }
+
+            if (parameters.Length == 1)
+            {
+                return new InterpreterOutput
+                {
+                    Text = "Lava: Error unexpected number of parameters",
+                    State = InterpreterOutputState.Error  
+                };
+            }
+
+            switch (parameters[1])
+            {
+                case "version":
+
+                    if (parameters.Length > 2)
+                    {
+                        return new InterpreterOutput
+                        {
+                            Text = "Error unexpected number of parameters",
+                            State = InterpreterOutputState.Error  
+                        };
+                    }
+
+                    return new InterpreterOutput
+                    {
+                        Text = "Lava: Version 25.0.1",
+                        State = InterpreterOutputState.Error  
+                    };
+
+                default:
+                    return new InterpreterOutput
+                    {
+                        Text = "Lava: No command found",
+                        State = InterpreterOutputState.Error  
+                    };
+            }
+        }
+
+        private static InterpreterOutput CommandMv(string[] parameters, string path)
+        {
+            if (parameters.Length != 3)
+                return new InterpreterOutput
+                {
+                    Text = "Error unexpected amount of parameters",
+                    State = InterpreterOutputState.Error
+                };
+
+            bool moved = Systems.System.Main.FileSystem.MoveFileNode(parameters[1], parameters[2]);
+
+            if (moved)
+                return InterpreterOutput.Empty;
+            else
+                return new InterpreterOutput
+                {
+                    Text = "Error unable to move file",
+                    State = InterpreterOutputState.Error  
+                };
+        }
+
+        private static InterpreterOutput CommandRm(string[] parameters, string path)
+        {
+            if (parameters.Length != 2)
+                return new InterpreterOutput
+                {
+                    Text = "Error unexpected amount of parameters",
+                    State = InterpreterOutputState.Error
+                };
+
+            bool removed = Systems.System.Main.FileSystem.RemoveFile(parameters[1]);
+
+            if (removed)
+                return InterpreterOutput.Empty;
+            else
+                return new InterpreterOutput
+                {
+                    Text = "Error unable to remove file",
+                    State = InterpreterOutputState.Error  
+                };
+        }
+
         private static string CombinePath(string path1, string path2)
         {
             List<string> path = new List<string>();
@@ -263,8 +375,6 @@ namespace SystemReboot.Terminal
                 if (!string.IsNullOrEmpty(s))
                     path.Add(s);
             }
-            
-            Debug.Log($"{path1} :: {path2}");
 
             foreach(string s in path2.Split('/'))
             {
