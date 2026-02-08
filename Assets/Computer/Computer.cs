@@ -24,21 +24,41 @@ namespace SystemReboot.Computers
         }
 
 
-        public void MoveFileNode(string pathToFileNode, string pathToDestinationFolder)
+        public bool MoveFileNode(string pathToFileNode, string pathToDestinationFolder)
         {
-            Folder oldFolder = (Folder) FileSystem.GetChildByPath(string.Join("/", pathToFileNode.Split("/").SkipLast(1).ToList())); // removing last search element 
-            // Empty string at the end if (/path/) might mess stuff up??
-            FileSystemNode fileNode = FileSystem.GetChildByPath(pathToFileNode);
+            string[] splitPath = pathToFileNode.Split('/');
+            Folder oldFolder = FileSystem.GetFolderFromPath(string.Join("/", splitPath.SkipLast(1).ToList()));
+
+            FileSystemNode fileNode = oldFolder.GetChildByName(pathToFileNode.Split('/')[splitPath.Length - 1]);
 
             if (oldFolder != null && fileNode != null)
             {
-                oldFolder.DeleteChild(fileNode);
-                Folder destinationFolder = (Folder) FileSystem.GetChildByPath(pathToDestinationFolder);
+                Folder destinationFolder = FileSystem.GetFolderFromPath(string.Join("/", pathToDestinationFolder.Split("/").SkipLast(1).ToList()));
                 if (destinationFolder != null)
                 {
+                    oldFolder.DeleteChild(fileNode);
                     destinationFolder.CreateChild(fileNode);
+                    return true;
                 }
             }
+            
+            return false;
+        }
+
+        public bool RemoveFile(string pathToFileNode)
+        {
+            string[] splitPath = pathToFileNode.Split('/');
+            Folder folder = FileSystem.GetFolderFromPath(string.Join("/", splitPath.SkipLast(1).ToList()));
+
+            FileSystemNode fileNode = folder.GetChildByName(pathToFileNode.Split('/')[splitPath.Length - 1]);
+
+            if (folder != null && fileNode != null)
+            {
+                folder.DeleteChild(fileNode);
+                return true;
+            }
+
+            return false;
         }
     }
 }

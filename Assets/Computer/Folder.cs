@@ -204,6 +204,54 @@ namespace SystemReboot.Computers
             return ((Folder)this.GetChildByName(folders[index])).IsValidPath(folders, index + 1);
         }
 
+        public Folder GetFolderFromPath(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+                return this;
+
+            if (path == ".")
+                return this;
+
+            if (path == "..")
+                return Parent;
+
+            if (path == "/")
+                return this;
+                
+            string[] folders = path.Split('/');
+            int index = path[0] == '/' ? 1 : 0;
+
+            return GetFolderFromPath(folders, index);
+        }
+
+        public Folder GetFolderFromPath(string[] folders, int index)
+        {
+            if (index == folders.Length)
+                return this;
+
+            if (index == folders.Length - 1 && string.IsNullOrWhiteSpace(folders[index]))
+                return this; 
+                
+            if (folders[index] == ".")
+                return this.GetFolderFromPath(folders, index + 1);
+
+            if (folders[index] == "..")
+            {
+                if (Parent == null)
+                    return null;
+                return Parent.GetFolderFromPath(folders, index + 1);
+            }
+
+            if (string.IsNullOrEmpty(folders[index]))
+                return null;
+
+            Folder folder = (Folder)this.GetChildByName(folders[index]);
+            if (folder == null)
+                return null;
+
+            return folder.GetFolderFromPath(folders, index + 1); 
+        }
+
         public void DeleteFolder(string folderName)
         {
             this.DeleteChild(folderName);
