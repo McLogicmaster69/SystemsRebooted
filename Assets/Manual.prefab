@@ -121,8 +121,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8424867853997264401}
-        m_TargetAssemblyTypeName: TMPPageFlipper, Assembly-CSharp
+      - m_Target: {fileID: 4768107643454531096}
+        m_TargetAssemblyTypeName: TMPPageFlipperLeft, Assembly-CSharp
         m_MethodName: PreviousPage
         m_Mode: 1
         m_Arguments:
@@ -133,8 +133,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3733306325706035807}
-        m_TargetAssemblyTypeName: TMPPageFlipper, Assembly-CSharp
+      - m_Target: {fileID: 5953705223844187420}
+        m_TargetAssemblyTypeName: TMPPageFlipperRight, Assembly-CSharp
         m_MethodName: PreviousPage
         m_Mode: 1
         m_Arguments:
@@ -266,8 +266,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8424867853997264401}
-        m_TargetAssemblyTypeName: TMPPageFlipper, Assembly-CSharp
+      - m_Target: {fileID: 4768107643454531096}
+        m_TargetAssemblyTypeName: TMPPageFlipperLeft, Assembly-CSharp
         m_MethodName: NextPage
         m_Mode: 1
         m_Arguments:
@@ -278,8 +278,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3733306325706035807}
-        m_TargetAssemblyTypeName: TMPPageFlipper, Assembly-CSharp
+      - m_Target: {fileID: 5953705223844187420}
+        m_TargetAssemblyTypeName: TMPPageFlipperRight, Assembly-CSharp
         m_MethodName: NextPage
         m_Mode: 1
         m_Arguments:
@@ -455,7 +455,7 @@ RectTransform:
   m_GameObject: {fileID: 6057629360451633410}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1193, y: 1.1193, z: 1.1193}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7433644701962631109}
@@ -464,10 +464,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 193, y: -0.000015258789}
-  m_SizeDelta: {x: -478.0431, y: -173.5075}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!223 &7099955175596682399
 Canvas:
   m_ObjectHideFlags: 0
@@ -513,7 +513,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &1879131808566072741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -809,14 +809,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "On The Subject Of Malicous Software\n\nAdware: Many pop-up ads\nSolution:\n
-    - Close all ads\n - Use \"\" in terminal\n - Uninstall malicious software\n\nVirus:
-    Corrupted programs\nSolution:\n - Use antivirus\n\nTrojan Horse: Only terminal
-    functional\nSolution:\n - Use \"\" in terminal\n - Uninstall malicious software\n\n\n\nOn
-    The Subject Of Software Updates\n\nJava:\n - Use \"java -version\" in terminal\n
-    - Java not installed:\n\tError: \"java not recognised\"\n\tSolution:\n\t - Open
-    Edge\n\t - Install newest version (25.0.2)\n - Java version out of date:\n\tError
-    ~\"25.0.1\"\n\tSolution:\n\t - Update Java\n"
+  m_text: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOn The Subject Of Malicous Software\n\nAdware:
+    Many pop-up ads\nSolution:\n - Close all ads\n - Use \"\" in terminal\n - Uninstall
+    malicious software\n\nVirus: Corrupted programs\nSolution:\n - Use antivirus\n\nTrojan
+    Horse: Only terminal functional\nSolution:\n - Use \"\" in terminal\n - Uninstall
+    malicious software\n\n\n\nOn The Subject Of Software Updates\n\nJava:\n - Use
+    \"java -version\" in terminal\n - Java not installed:\n\tError: \"java not recognised\"\n\tSolution:\n\t
+    - Open Edge\n\t - Install newest version (25.0.2)\n - Java version out of date:\n\tError
+    ~\"25.0.1\"\n\tSolution:\n\t - Update Java\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -953,13 +953,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "On The Subject Of Malicous Software\n\nCrypojacking: Limited resources\nSolution:\n
-    - Use \"\" in terminal\n - Identify the resource intensive app\n - Uninstall
-    it\n\n\n\n\n\n\n\n\n\nTo uninstall: \nList the apps, then \"uninstall #\" in
-    terminal\nOn The Subject Of Software Updates\n\nPython:\n - Use \"python -version\"
-    in terminal\n - Python not installed:\n\tError: \"python\" not recognised\n\tSolution:\n\t
-    - Open Edge\n\t - Install Python\n - Python version outdated:\n\tError: \"Python
-    is outdated...\"\n\tUse \"pip-update\" in terminal"
+  m_text: "\n\t\n\n\n\t\t     IT Manual\n\t   Everything You Need, All\n\t            
+    In One Place\n\n\n\n\n\n\n\n\n\n\n\n\nOn The Subject Of Malicous Software\n\nCrypojacking:
+    Limited resources\nSolution:\n - Use \"\" in terminal\n - Identify the resource
+    intensive app\n - Uninstall it\n\n\n\n\n\n\n\n\n\nTo uninstall: \nList the apps,
+    then \"uninstall #\" in terminal\nOn The Subject Of Software Updates\n\nPython:\n
+    - Use \"python -version\" in terminal\n - Python not installed:\n\tError: \"python\"
+    not recognised\n\tSolution:\n\t - Open Edge\n\t - Install Python\n - Python version
+    outdated:\n\tError: \"Python is outdated...\"\n\tUse \"pip-update\" in terminal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1131,7 +1132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8015537202901202259}
-  - component: {fileID: 3733306325706035807}
+  - component: {fileID: 5953705223844187420}
   m_Layer: 5
   m_Name: PageController
   m_TagString: Untagged
@@ -1158,7 +1159,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3733306325706035807
+--- !u!114 &5953705223844187420
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1180,7 +1181,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 332860128661811027}
-  - component: {fileID: 8424867853997264401}
+  - component: {fileID: 4768107643454531096}
   m_Layer: 5
   m_Name: PageController
   m_TagString: Untagged
@@ -1207,7 +1208,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8424867853997264401
+--- !u!114 &4768107643454531096
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1216,7 +1217,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9151731386283770738}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a15785440e0f4104d900e7644c9c3bd0, type: 3}
+  m_Script: {fileID: 11500000, guid: 46824a14bf6ad0743b913dc2b1f9bd55, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TMPPageFlipper
+  m_EditorClassIdentifier: Assembly-CSharp::TMPPageFlipperLeft
   text: {fileID: 1825474221261105571}

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class TMPPageFlipper : MonoBehaviour
+public class TMPPageFlipperRight : MonoBehaviour
 {
     public TextMeshProUGUI text;
     private int currentPage = 0;
