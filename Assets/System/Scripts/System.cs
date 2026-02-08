@@ -1,6 +1,7 @@
 using System.Collections;
 using SystemReboot.Bugs;
 using SystemReboot.Terminal;
+using SystemReboot.Computers;
 using UnityEngine;
 
 namespace SystemReboot.Systems
@@ -12,7 +13,8 @@ namespace SystemReboot.Systems
         [SerializeField] private GameObject _desktopUI;
         [SerializeField] private GameObject _completeClientButton;
 
-        public SystemVariables SystemVariables { get; private set;}
+        public SystemVariables SystemVariables { get; private set; }
+        public Computer FileSystem { get; private set; }
 
         private Bug _bug;
 
@@ -24,10 +26,17 @@ namespace SystemReboot.Systems
         public void InitNewSystem(Bug bug)
         {
             SystemVariables = new SystemVariables();
+            FileSystem = new Computer();
 
             // Default Variables
             SystemVariables.SetVariable("DESKTOP_STATE", "on");
             SystemVariables.SetVariable("TIMEZONE", "uk");
+
+            // Default files
+            FileSystem.FileSystem.CreateFolderPath("usr/username/desktop");
+            FileSystem.FileSystem.CreateFolderPath("usr/username/videos");
+            FileSystem.FileSystem.CreateFolderPath("usr/username/photos");
+            FileSystem.FileSystem.CreateFolderPath("usr/username/apps");
 
             // Inject bug
             _bug = bug;

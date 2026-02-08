@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace SystemReboot.Terminal
 {
@@ -14,7 +15,9 @@ namespace SystemReboot.Terminal
             {"addvar", CommandAddVar},
             {"setvar", CommandSetVar},
             {"reboot", CommandReboot},
-            {"cls", CommandCls}
+            {"cls", CommandCls},
+            {"ls", CommandLs},
+            {"cd", CommandCd}
         };
 
         public static InterpreterOutput Interpret(string input, string path)
@@ -159,6 +162,128 @@ namespace SystemReboot.Terminal
             {
                 Clear = true
             };
+        }
+
+        private static InterpreterOutput CommandLs(string[] parameters, string path)
+        {
+            if (parameters.Length > 2)
+                return new InterpreterOutput
+                {
+                    Text = "Error unexpected amount of parameters",
+                    State = InterpreterOutputState.Error
+                };
+
+            List<string> nodes;
+            string outputPath;
+
+            if (parameters.Length == 1)
+            {
+                nodes = Systems.System.Main.FileSystem.FileSystem.GetChildrenNameListByPath(path);
+                outputPath = path;
+            }
+            else if (parameters[1] == "/")
+            {
+                nodes = Systems.System.Main.FileSystem.FileSystem.GetChildrenNameList();
+                outputPath = "/";
+            }
+            else
+            {
+                nodes = Systems.System.Main.FileSystem.FileSystem.GetChildrenNameListByPath(path + parameters[1]);
+                outputPath = path + parameters[1];
+            }
+
+            if (nodes.Count == 0)
+                return new InterpreterOutput
+                {
+                    Text = $"No files or folders found in \"{outputPath}\""
+                };
+            
+            string output = $"Files and folders in \"{outputPath}\":\n";
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                if (i == nodes.Count - 1)
+                    output += $"- {nodes[i]}";
+                else
+                    output += $"- {nodes[i]}\n";
+            }
+
+            return new InterpreterOutput
+            {
+                Text = output,
+                State = InterpreterOutputState.Fine
+            };
+        }
+
+        private static InterpreterOutput CommandCd(string[] parameters, string path)
+        {
+            if (parameters.Length != 2)
+                return new InterpreterOutput
+                {
+                    Text = "Error unexpected amount of parameters",
+                    State = InterpreterOutputState.Error
+                };
+
+            if (parameters[1] == ".")
+                return InterpreterOutput.Empty;
+
+            if (parameters[1] == "..")
+                return new InterpreterOutput
+                {
+                    ChangedDirectory = true,
+                    NewPath = CombinePath(path, "..")
+                };
+
+            if (parameters[1] == "/")
+                return new InterpreterOutput
+                {
+                    ChangedDirectory = true,
+                    NewPath = "/"
+                };
+
+            if (Systems.System.Main.FileSystem.FileSystem.IsValidPath(path + parameters[1]))
+                return new InterpreterOutput
+                {
+                    ChangedDirectory = true,
+                    NewPath = CombinePath(path, parameters[1])
+                };
+                
+            return new InterpreterOutput
+            {
+                Text = "Error invalid path",
+                State = InterpreterOutputState.Error
+            };
+        }
+
+        private static string CombinePath(string path1, string path2)
+        {
+            List<string> path = new List<string>();
+
+            foreach (string s in path1.Split('/'))
+            {
+                if (!string.IsNullOrEmpty(s))
+                    path.Add(s);
+            }
+            
+            Debug.Log($"{path1} :: {path2}");
+
+            foreach(string s in path2.Split('/'))
+            {
+                if (s == "." || string.IsNullOrEmpty(s))
+                    continue;
+                if (s == "..")
+                    path.RemoveAt(path.Count - 1);
+                else
+                    path.Add(s);
+            }
+
+            string combined = "";
+
+            foreach (string s in path)
+            {
+                combined += $"{s}/";
+            }
+
+            return $"/{combined}";
         }
 
         private static (bool, string[]) ConvertToParamters(string input)
