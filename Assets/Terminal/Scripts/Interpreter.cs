@@ -10,7 +10,11 @@ namespace SystemReboot.Terminal
         {
             {"echo", CommandEcho},
             {"time", CommandTime},
-            {"pwd", CommandPwd}
+            {"pwd", CommandPwd},
+            {"addvar", CommandAddVar},
+            {"setvar", CommandSetVar},
+            {"reboot", CommandReboot},
+            {"cls", CommandCls}
         };
 
         public static InterpreterOutput Interpret(string input, string path)
@@ -25,10 +29,7 @@ namespace SystemReboot.Terminal
                 };
 
             if (parametersOutput.Item2.Length == 0)
-                return new InterpreterOutput
-                {
-                    State = InterpreterOutputState.Empty
-                };
+                return InterpreterOutput.Empty;
 
             if (_commands.ContainsKey(parametersOutput.Item2[0]))
             {
@@ -46,25 +47,35 @@ namespace SystemReboot.Terminal
 
         private static InterpreterOutput CommandEcho(string[] parameters, string path)
         {
-            string output = "";
-
-            for(int i = 1; i < parameters.Length; i++)
-            {
-                output += $"{parameters[i]} ";
-            }
-
             return new InterpreterOutput
             {
-                Text = output,
+                Text = CombineParamters(parameters, 1),
                 State = InterpreterOutputState.Fine
             };
         }
 
         private static InterpreterOutput CommandTime(string[] parameters, string path)
         {
+            string timeZone = Systems.System.Main.SystemVariables.GetVariable("TIMEZONE").Item2;
+
+            string currentTime;
+
+            switch (timeZone)
+            {
+                case "uk":
+                    currentTime = DateTime.Now.ToString();
+                    break;
+                case "us":
+                    currentTime = DateTime.Now.AddHours(-5).ToString();
+                    break;
+                default:
+                    currentTime = "Error unknown timezone";
+                    break;
+            }
+
             return new InterpreterOutput
             {
-                Text = DateTime.Now.ToString(),
+                Text = currentTime,
                 State = InterpreterOutputState.Fine
             };
         }
@@ -75,6 +86,78 @@ namespace SystemReboot.Terminal
             {
                 Text = path,
                 State = InterpreterOutputState.Fine
+            };
+        }
+
+        private static InterpreterOutput CommandAddVar(string[] parameters, string path)
+        {
+            if (parameters.Length < 2)
+            {
+                return new InterpreterOutput
+                {
+                    Text = "Unexpected number of parameters",
+                    State = InterpreterOutputState.Error
+                };
+            }
+
+            if (Systems.System.Main.SystemVariables.ContainsVariable(parameters[1]))
+            {
+                return new InterpreterOutput
+                {
+                    Text = "System already contains variable",
+                    State = InterpreterOutputState.Error
+                };
+            }
+
+            string value =  CombineParamters(parameters, 2);
+            Systems.System.Main.SystemVariables.SetVariable(parameters[1], value);
+            return new InterpreterOutput
+            {
+                Text = $"Added variable {parameters[1]} with value \"{value}\""
+            };
+        }
+
+        private static InterpreterOutput CommandSetVar(string[] parameters, string path)
+        {
+            if (parameters.Length < 3)
+            {
+                return new InterpreterOutput
+                {
+                    Text = "Unexpected number of parameters",
+                    State = InterpreterOutputState.Error
+                };
+            }
+
+            if (!Systems.System.Main.SystemVariables.ContainsVariable(parameters[1]))
+            {
+                return new InterpreterOutput
+                {
+                    Text = "Unknown system variable",
+                    State = InterpreterOutputState.Error
+                };
+            }
+
+            string value =  CombineParamters(parameters, 2);
+            Systems.System.Main.SystemVariables.SetVariable(parameters[1], value);
+            return new InterpreterOutput
+            {
+                Text = $"Set variable {parameters[1]} to value \"{value}\""
+            };
+        }
+
+        private static InterpreterOutput CommandReboot(string[] parameters, string path)
+        {
+            return new InterpreterOutput
+            {
+                Reboot = true
+            };
+        }
+
+        private static InterpreterOutput CommandCls(string[] parameters, string path)
+        {
+            return new InterpreterOutput
+            {
+                Clear = true
             };
         }
 
@@ -98,7 +181,7 @@ namespace SystemReboot.Terminal
 
                     if (isVariable)
                     {
-                        (bool, string) systemVariable = Systems.System.SystemVariables.GetVariable(currentParameter);
+                        (bool, string) systemVariable = Systems.System.Main.SystemVariables.GetVariable(currentParameter);
                         output.Add(systemVariable.Item2);
                         currentParameter = string.Empty;
                         isVariable = false;
@@ -155,6 +238,20 @@ namespace SystemReboot.Terminal
                 output.Add(currentParameter);
 
             return (true, output.ToArray());
+        }
+
+        private static string CombineParamters(string[] parameters, int startIndex)
+        {
+            string output = "";
+
+            for(int i = startIndex; i < parameters.Length; i++)
+            {
+                output += parameters[i];
+                if (i + 1 != parameters.Length)
+                    output += " ";
+            }
+
+            return output;
         }
     }
 }

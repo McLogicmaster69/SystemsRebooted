@@ -1,9 +1,9 @@
-using UnityEngine;
-
 namespace SystemReboot.Bugs
 {
     public class ExampleBug : Bug
     {
+        public ExampleBug() : base("") { }
+
         public override void InitBug()
         {
             
