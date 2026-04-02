@@ -466,7 +466,7 @@ namespace SystemReboot.Terminal
                 currentParameter += c.ToString();
             }
 
-            if (isString)
+            if (isString || isVariable)
                 return (false, new string[0]);
 
             if (!string.IsNullOrEmpty(currentParameter))

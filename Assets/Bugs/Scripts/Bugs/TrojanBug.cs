@@ -11,6 +11,8 @@ namespace SystemReboot.Bugs
             Systems.System.Main.FileSystem.FileSystem.CreateFolderPath("etc/horse");
 
             Systems.System.Main.FileSystem.FileSystem.GetFolderFromPath("etc/horse").CreateFile("trojan.exe");
+
+            Systems.System.Main.SystemVariables.SetVariable("BACKGROUND_INDEX", "1");
         }
 
 
